@@ -12,8 +12,20 @@ spec:
       labels:
         app: petclinic
     spec:
+      securityContext:
+        runAsNonRoot: true
+
       containers:
       - name: petclinic
-        image: 450444046629.dkr.ecr.us-east-1.amazonaws.com/user01-petclinic:latest
+        image: IMAGE_PLACEHOLDER
+
         ports:
         - containerPort: 8080
+
+        securityContext:
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+              - ALL  
