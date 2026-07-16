@@ -22,7 +22,7 @@ COPY --from=builder /app/target/*.jar app.jar
 RUN chown spring:spring app.jar
 
 # 마지막에 일반 사용자로 변경
-USER spring
+USER 1000
 
 EXPOSE 8080
 
