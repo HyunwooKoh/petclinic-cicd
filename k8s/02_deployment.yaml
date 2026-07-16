@@ -20,6 +20,7 @@ spec:
       - name: petclinic
         image: 450444046629.dkr.ecr.us-east-1.amazonaws.com/user01-petclinic:v1
         imagePullPolicy: Always
+
         ports:
         - containerPort: 8080
 
@@ -32,3 +33,19 @@ spec:
 
         - name: MYSQL_PASSWORD
           value: rhgusdn0919
+
+        securityContext:
+          runAsNonRoot: true
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+              - ALL
+
+        volumeMounts:
+        - name: tmp
+          mountPath: /tmp
+
+      volumes:
+      - name: tmp
+        emptyDir: {}
