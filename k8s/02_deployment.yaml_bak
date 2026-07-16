@@ -16,18 +16,10 @@ spec:
         app: petclinic
 
     spec:
-      # Pod Security Context 추가
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-
       containers:
       - name: petclinic
         image: 450444046629.dkr.ecr.us-east-1.amazonaws.com/user01-petclinic:v1
         imagePullPolicy: Always
-
         ports:
         - containerPort: 8080
 
@@ -40,18 +32,3 @@ spec:
 
         - name: MYSQL_PASSWORD
           value: rhgusdn0919
-
-        securityContext:
-          allowPrivilegeEscalation: false
-          readOnlyRootFilesystem: false
-          capabilities:
-            drop:
-              - ALL
-
-        volumeMounts:
-        - name: tmp
-          mountPath: /tmp
-
-      volumes:
-      - name: tmp
-        emptyDir: {}
