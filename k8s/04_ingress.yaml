@@ -2,6 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: petclinic-ingress
+  namespace: petclinic
 
   annotations:
 
@@ -37,7 +38,7 @@ spec:
 
           service:
 
-            name: petclinic-svc
+            name: petclinic-service
 
             port:
 
