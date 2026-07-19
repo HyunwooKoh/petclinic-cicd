@@ -2,20 +2,43 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: petclinic-ingress
-  namespace: petclinic
+
   annotations:
+
+    kubernetes.io/ingress.class: alb
+
     alb.ingress.kubernetes.io/scheme: internet-facing
+
     alb.ingress.kubernetes.io/target-type: instance
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
+
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80},{"HTTPS":443}]'
+
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:450444046629:certificate/16cf2438-c09f-4e25-9138-9e6d20901adf
+
+    alb.ingress.kubernetes.io/ssl-redirect: '443'
+
 spec:
+
   ingressClassName: alb
+
   rules:
-    - http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: petclinic-service
-                port:
-                  number: 80
+
+  - host: user01.weplat.shop
+
+    http:
+
+      paths:
+
+      - path: /
+
+        pathType: Prefix
+
+        backend:
+
+          service:
+
+            name: petclinic-svc
+
+            port:
+
+              number: 80
